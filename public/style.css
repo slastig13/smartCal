@@ -23,3 +23,11 @@ form div {
 .event {
   border: 5px solid blue;
 }
+
+.miniWindow {
+  border: 3px solid lightblue;
+}
+
+.suggestion {
+  border: 2px solid lightgrey;
+}

@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import eventReducer from './events'
 import shortDateReducer from './shortDate'
+import venueReducer from './venues'
 
 const reducer = combineReducers({
   user,
   events: eventReducer,
-  shortDate: shortDateReducer
+  shortDate: shortDateReducer,
+  venues: venueReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

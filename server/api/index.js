@@ -3,6 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/calendar', require('./calendar'))
+router.use('/foursquare', require('./foursquare'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

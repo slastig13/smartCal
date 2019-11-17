@@ -19,17 +19,14 @@ class DateDropDown extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-    // console.log(`this is my state date`, this.state.date)
-    // let endDate = new Date(this.state.date)
-    // endDate.setHours(23, 59, 59, 999)
-
-    let dateDetails = {
-      timeMin: new Date(`${this.state.date} 00:00`).toISOString(),
-      timeMax: new Date(`${this.state.date} 23:59:59`).toISOString()
+    if (this.state.date.length > 1) {
+      let dateDetails = {
+        timeMin: new Date(`${this.state.date} 00:00`).toISOString(),
+        timeMax: new Date(`${this.state.date} 23:59:59`).toISOString()
+      }
+      this.props.shortDate(this.state.date)
+      this.props.getEvents(dateDetails)
     }
-    // console.log(`date details`, dateDetails)
-    this.props.shortDate(this.state.date)
-    this.props.getEvents(dateDetails)
   }
 
   render() {

@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+// const {User} = require('../db/models')
 const {google} = require('googleapis')
 const calendar = google.calendar('v3')
-var unirest = require('unirest')
+// var unirest = require('unirest')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
