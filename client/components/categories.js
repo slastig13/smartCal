@@ -30,9 +30,9 @@ class Categories extends React.Component {
     switch (category) {
       case 'arts':
         return {
-          'Bowling Alleys': '4bf58dd8d48988d1e4931735',
-          'Movie Theaters': '4bf58dd8d48988d17f941735',
-          'Events and Festivals': '4d4b7105d754a06373d81259'
+          'Bowling Alley': '4bf58dd8d48988d1e4931735',
+          'Movie Theater': '4bf58dd8d48988d17f941735',
+          'Events and Festival': '4d4b7105d754a06373d81259'
         }
       case 'food':
         return {
@@ -43,18 +43,18 @@ class Categories extends React.Component {
           Deli: '4bf58dd8d48988d146941735',
           Italian: '4bf58dd8d48988d110941735',
           Mexican: '4bf58dd8d48988d1c1941735',
-          Bars: '4bf58dd8d48988d116941735'
+          Bar: '4bf58dd8d48988d116941735'
         }
       case 'sports':
         return {
-          'Basketball Courts': '4bf58dd8d48988d1e1941735',
-          'Fitness Centers': '4bf58dd8d48988d175941735',
+          'Basketball Court': '4bf58dd8d48988d1e1941735',
+          'Fitness Center': '4bf58dd8d48988d175941735',
           Parks: '4bf58dd8d48988d163941735'
         }
       case 'parking':
         return {
           Parking: '4c38df4de52ce0d596b336e1',
-          'Gas Stations': '4bf58dd8d48988d113951735'
+          'Gas Station': '4bf58dd8d48988d113951735'
         }
     }
   }
@@ -109,13 +109,13 @@ class Categories extends React.Component {
             )}
         </p>
         <p>
-          {this.state.subcat &&
-            this.state.subcat.length > 1 && (
-              <div>
-                Here are some {this.state.subcat} suggestions nearby!
-                <Suggestions />
-              </div>
-            )}
+          {this.state.subcat && this.state.subcat.length > 1 && (
+            <div>
+              Here are some {this.state.subcat} suggestions within 0.5 miles of
+              this event!
+              <Suggestions />
+            </div>
+          )}
         </p>
       </div>
     )
