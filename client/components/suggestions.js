@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 class Suggestions extends React.Component {
   render() {
-    console.log(`venues`, this.props.venues)
     return (
       <div>
         {this.props.venues && this.props.venues.length > 0 ? (

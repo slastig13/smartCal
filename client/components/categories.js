@@ -109,13 +109,14 @@ class Categories extends React.Component {
             )}
         </p>
         <p>
-          {this.state.subcat && this.state.subcat.length > 1 && (
-            <div>
-              Here are some {this.state.subcat} suggestions within 0.5 miles of
-              this event!
-              <Suggestions />
-            </div>
-          )}
+          {this.state.subcat &&
+            this.state.subcat.length > 1 && (
+              <div>
+                Here are some {this.state.subcat} suggestions within 0.5 miles
+                of this event!
+                <Suggestions />
+              </div>
+            )}
         </p>
       </div>
     )
