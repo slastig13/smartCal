@@ -2,6 +2,8 @@ const passport = require('passport')
 const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User} = require('../db/models')
+const {google} = require('googleapis')
+const calendar = google.calendar('v3')
 module.exports = router
 
 /**
@@ -29,28 +31,52 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
   const strategy = new GoogleStrategy(
     googleConfig,
-    (token, refreshToken, profile, done) => {
+    async (token, refreshToken, profile, done) => {
       const googleId = profile.id
       const email = profile.emails[0].value
-      const imgUrl = profile.photos[0].value
-      const firstName = profile.name.givenName
-      const lastName = profile.name.familyName
-      const fullName = profile.displayName
 
-      User.findOrCreate({
-        where: {googleId},
-        defaults: {email, imgUrl, firstName, lastName, fullName}
+      var oauth2Client = new google.auth.OAuth2(
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
+        process.env.GOOGLE_CALLBACK
+      )
+      oauth2Client.credentials = {
+        access_token: token,
+        refresh_token: refreshToken
+      }
+      let user = await User.findOne({
+        where: {googleId, email: email}
       })
-        .then(([user]) => done(null, user))
-        .catch(done)
+      if (!user) {
+        await User.create({
+          googleId,
+          email: email,
+          accessToken: token,
+          refreshToken: refreshToken
+        })
+          .then(user => done(null, user))
+          .catch(done)
+      } else {
+        await user
+          .update({accessToken: token, refreshToken: refreshToken})
+          .then(user => done(null, user))
+          .catch(done)
+      }
     }
   )
 
   passport.use(strategy)
+  // console.log(`strategy ------>`, strategy['_oauth2'])
 
   router.get(
     '/',
-    passport.authenticate('google', {scope: ['email', 'profile']})
+    passport.authenticate('google', {
+      scope: [
+        'email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/calendar.events'
+      ]
+    })
   )
 
   router.get(
